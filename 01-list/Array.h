@@ -6,18 +6,28 @@ using namespace std;
 class Array
 {
     public:
-        Array(int size;
-        Array(int size, int initial_array[]);
+        Array(int size, int gap);
+        Array(int size, int gap, int initial_array[]);
         virtual ~Array();
 
-        extern int find(int key);
-        extern int find_and_insert(int key);
-        extern void insert(int key);
-        extern void remove(int key);
+        int find(int key);
+        int find_and_insert(int key);
+        void insert(int key);
+        void remove(int key);
+
+        void print_index_table();
+		void print_array();
+
 
     protected:
+    	void sort_array();
+    	int get_primary_index(int key);
+    	void make_index_table();
+
     	int * array;
+    	int * index;
     	int size;
+    	int gap;
 };
 
 #endif
