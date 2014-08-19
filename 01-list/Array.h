@@ -12,8 +12,8 @@ class Array
 
         int find(int key);
         int find_and_insert(int key);
-        void insert(int key);
-        void remove(int key);
+        int insert(int key);
+        int remove(int key);
 
         void print_index_table();
 		void print_array();

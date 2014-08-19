@@ -1,6 +1,7 @@
 #include "Array.h"
 #include <iostream>
 #include <algorithm>
+#include "Exceptions.h"
 
 using namespace std;
 
@@ -81,8 +82,12 @@ int Array::find(int key)
 {
     int primary_index = this->get_primary_index(key);
 
+    cout << "primary_index = " << primary_index << endl;
+
     if(primary_index == -1)
         return -1;
+
+    cout << "primary_index_key = " << this->array[primary_index] << endl;
 
     for (int i = primary_index; (i < primary_index+this->gap+1) && (i < this->size); ++i)
     {
@@ -97,13 +102,16 @@ int Array::get_primary_index(int key)
 {
     int limit = this->size/this->gap;
 
+    if(key < 0)
+        return -1;
+
     for (int i = 1; i < limit; ++i)
     {
         if(key >= this->index[i-1] && key < this->index[i])
-            return i;
+            return this->index[i-1];
     }
 
-    return -1;
+    return this->index[limit-1];
 }
 
 int Array::find_and_insert(int key)
@@ -122,4 +130,14 @@ int Array::find_and_insert(int key)
 void Array::sort_array()
 {
     sort(this->array, this->array+this->size);
+}
+
+int Array::insert(int key)
+{
+    int found = this->find(key);
+
+    if(found != -1)
+        throw element_already_exists();
+
+    return 0;
 }

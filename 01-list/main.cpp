@@ -19,5 +19,7 @@ int main()
 	second_test.print_array();
 	second_test.print_index_table();
 
+	cout << "The key 97 in second test is at position: " << second_test.find(97) << endl;
+
 	return 0;
 }
