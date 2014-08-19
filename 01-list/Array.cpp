@@ -21,7 +21,10 @@ Array::Array(int size, int gap)
 Array::Array(int size, int gap, int initial_array[])
 {
     this->size = size;
-    this->array = initial_array;
+    this->array = new int[this->size];
+
+    for (int i = 0; i < size; ++i)
+        this->array[i] = initial_array[i];
 
     this->gap = gap;
     this->index = new int[this->size/this->gap];
