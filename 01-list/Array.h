@@ -1,12 +1,14 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 
+#include <vector>
+#include <utility>
+
 using namespace std;
 
 class Array
 {
     public:
-        Array(int size, int gap);
         Array(int size, int gap, int initial_array[]);
         virtual ~Array();
 
@@ -23,10 +25,12 @@ class Array
     	void sort_array();
     	int get_primary_index(int key);
     	void make_index_table();
+        int index_size();
+        int get_better_index(int key);
+        bool sorted();
 
-    	int * array;
-    	int * index;
-    	int size;
+        vector<int> array;
+        vector< pair <int, int> > index;
     	int gap;
 };
 

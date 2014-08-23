@@ -7,19 +7,35 @@ int random_array[103] = {40, 102, 21, 83, 72, 65, 30, 26, 44, 93, 29, 51, 16, 87
 
 int main()
 {
-	Array array = Array(100, 10);
+	int key_to_find = -140;
+	int key_to_remove  = 30;
+	int key_to_insert = 30;
 
-	array.print_array();
-	array.print_index_table();
+	cout << "Test with random_array" << endl;
 
-	cout << "Second test with random_array" << endl;
+	Array test = Array(59, 10, random_array);
 
-	Array second_test = Array(103, 10, random_array);
+	test.print_array();
+	test.print_index_table();
 
-	second_test.print_array();
-	second_test.print_index_table();
+	int index = test.find(key_to_find);
 
-	cout << "The key 97 in second test is at position: " << second_test.find(97) << endl;
+	if(index == -1)
+		cout << "Key " << key_to_find << " not found" << endl;
+	else
+		cout << "The key " << key_to_find << " in test is at position: " << index << endl;
+
+	cout << endl << "Remove " << key_to_remove << " from array:" << endl;
+	
+	test.remove(key_to_remove);
+	test.print_array();
+	test.print_index_table();
+
+	cout << endl << "Insert " << key_to_insert << " in array:" << endl;
+
+	test.insert(key_to_insert);
+	test.print_array();
+	test.print_index_table();
 
 	return 0;
 }

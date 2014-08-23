@@ -5,74 +5,53 @@
 
 using namespace std;
 
-Array::Array(int size, int gap)
-{
-    this->size = size;
-    this->gap = gap;
-
-    this->array = new int[this->size];
-    this->index = new int[this->size/this->gap];
-
-    for (int i = 0; i < this->size; ++i)
-        this->array[i] = -1;
-
-    this->make_index_table();
-}
-
 Array::Array(int size, int gap, int initial_array[])
 {
-    this->size = size;
-    this->array = new int[this->size];
-
     for (int i = 0; i < size; ++i)
-        this->array[i] = initial_array[i];
+        this->array.push_back(initial_array[i]);
 
     this->gap = gap;
-    this->index = new int[this->size/this->gap];
 
     this->make_index_table();
 }
 
-Array::~Array()
-{
-    delete [] this->array;
-    delete [] this->index;
-}
+Array::~Array(){}
 
 void Array::make_index_table()
 {
-    if(this->index)
-        delete [] this->index;
-    
-    this->index = new int[this->size/this->gap];
+    this->index.clear();
 
     this->sort_array();
 
-    for (int i = 0; i < this->size/this->gap; ++i)
+    int limit = this->index_size();
+
+    for (int i = 0; i < limit; ++i)
     {
-        this->index[i] = this->array[this->gap*i];
+        pair <int, int> element;
+        element.first = this->gap*i;
+        element.second = this->array[this->gap*i];
+
+        this->index.push_back(element);
     }
 }
 
 void Array::print_index_table()
 {
-    int limit = this->size/this->gap;
+    int limit = this->index.size();
 
-    cout << endl;
-    cout << "My Array's Index Table with size = " << limit << ": ";
+    cout << endl << "My Array's Index Table with size = " << this->index.size() << ":" << endl;
 
     for (int i = 0; i < limit; ++i)
-        cout << "[" << this->index[i] << "]";
+        cout << "[" << this->index[i].first << "] = " << this->index[i].second << endl;
 
     cout << endl;
 }
 
 void Array::print_array()
 {
-    cout << endl;
-    cout << "My Array with size = " << this->size << ": ";
+    cout << endl << "My Array with size = " << this->array.size() << ": ";
 
-    for (int i = 0; i < this->size; ++i)
+    for (unsigned int i = 0; i < this->array.size(); ++i)
         cout << "[" << this->array[i] << "] ";
 
     cout << endl;
@@ -87,9 +66,9 @@ int Array::find(int key)
     if(primary_index == -1)
         return -1;
 
-    cout << "primary_index_key = " << this->array[primary_index] << endl;
+    cout << "Primary index Key = " << this->array[primary_index] << endl;
 
-    for (int i = primary_index; (i < primary_index+this->gap+1) && (i < this->size); ++i)
+    for (int i = primary_index; (i < primary_index+this->gap+1) && (i < (int)this->array.size()); ++i)
     {
         if(this->array[i] == key)
             return i;
@@ -100,18 +79,18 @@ int Array::find(int key)
 
 int Array::get_primary_index(int key)
 {
-    int limit = this->size/this->gap;
+    int limit = this->index.size();
 
     if(key < 0)
         return -1;
 
     for (int i = 1; i < limit; ++i)
     {
-        if(key >= this->index[i-1] && key < this->index[i])
-            return this->index[i-1];
+        if(key >= this->index[i-1].second && key < this->index[i].second)
+            return this->index[i-1].first;
     }
 
-    return this->index[limit-1];
+    return this->index[limit-1].first;
 }
 
 int Array::find_and_insert(int key)
@@ -127,9 +106,35 @@ int Array::find_and_insert(int key)
     return -1;
 }
 
+int Array::remove(int key)
+{
+    int found = this->find(key);
+
+    if(found == -1)
+        throw key_not_found();
+
+    this->array.erase(this->array.begin() + found);
+
+    this->make_index_table();
+
+    return found;
+}
+
 void Array::sort_array()
 {
-    sort(this->array, this->array+this->size);
+    if(!this->sorted())
+        sort(this->array.begin(), this->array.end());
+}
+
+bool Array::sorted()
+{
+    for (int i = 1; i < (int)this->array.size(); ++i)
+    {
+        if(this->array[i] < this->array[i-1])
+            return false;
+    }
+
+    return true;
 }
 
 int Array::insert(int key)
@@ -139,5 +144,31 @@ int Array::insert(int key)
     if(found != -1)
         throw element_already_exists();
 
+    int position = get_better_index(key);
+
+    this->array.emplace(this->array.begin()+position, key);
+
+    this->make_index_table();
+
     return 0;
+}
+
+int Array::index_size()
+{
+    int size = this->array.size()/this->gap;
+
+    if(this->array.size() % this->gap != 0)
+        size++;
+    return size;
+}
+
+int Array::get_better_index(int key)
+{
+    for (unsigned int i = 1; i < this->array.size(); ++i)
+    {
+        if(key < this->array[i])
+            return i-1;
+    }
+
+    return this->array.size()-1;
 }
