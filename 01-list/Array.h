@@ -10,12 +10,15 @@ class Array
 {
     public:
         Array(int size, int gap, int initial_array[]);
+        Array();
         virtual ~Array();
 
         int find(int key);
-        int find_and_insert(int key);
+        int find_by_interpolation(int key);
         int insert(int key);
         int remove(int key);
+
+        void push_back(int key);
 
         void print_index_table();
 		void print_array();

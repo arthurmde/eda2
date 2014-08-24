@@ -15,6 +15,8 @@ Array::Array(int size, int gap, int initial_array[])
     this->make_index_table();
 }
 
+Array::Array(){}
+
 Array::~Array(){}
 
 void Array::make_index_table()
@@ -33,6 +35,11 @@ void Array::make_index_table()
 
         this->index.push_back(element);
     }
+}
+
+void Array::push_back(int key)
+{
+    this->array.push_back(key);
 }
 
 void Array::print_index_table()
@@ -77,6 +84,25 @@ int Array::find(int key)
     return -1;
 }
 
+int Array::find_by_interpolation(int key)
+{
+    int start = 0;
+    int end = this->array.size()-1;
+
+    while(end >= start)
+    {
+        int middle =  start + ((end-start) * (key - this->array[start]) / (this->array[end]-this->array[start]));
+        if(this->array[middle] == key)
+            return middle;
+        else if(this->array[middle] > key)
+            end = middle - 1;
+        else
+            start = middle + 1;
+    }
+
+    return -1;
+}
+
 int Array::get_primary_index(int key)
 {
     int limit = this->index.size();
@@ -93,18 +119,6 @@ int Array::get_primary_index(int key)
     return this->index[limit-1].first;
 }
 
-int Array::find_and_insert(int key)
-{
-/*    if(this->find(key) != -1)
-        return this->find(key);
-
-    if(this->find)
-
-
-    return -1;*/
-
-    return -1;
-}
 
 int Array::remove(int key)
 {
