@@ -8,8 +8,10 @@ using namespace std;
 int random_array[103] = {40, 102, 21, 83, 72, 65, 30, 26, 44, 93, 29, 51, 16, 87, 12, 28, 31, 77, 69, 91, 81, 23, 22, 88, 4, 49, 61, 39, 79, 74, 67, 38, 63, 14, 84, 100, 99, 18, 53, 97, 42, 92, 82, 95, 78, 56, 85, 58, 9, 1, 48, 34, 35, 76, 27, 17, 7, 45, 36, 54, 11, 25, 94, 90, 59, 64, 0, 15, 98, 20, 68, 32, 86, 24, 96, 75, 101, 71, 55, 41, 8, 33, 50, 2, 3, 19, 60, 66, 70, 46, 80, 89, 43, 37, 13, 5, 47, 52, 62, 6, 10, 73, 57};
 int circular_array[10] = {4,5,6,7,8,9,0,1,2,3};
 
-void question_01()
+void question_04()
 {
+
+	cout << "Question N. 4" << endl << endl;
 	int key_to_find = 12;
 	int key_to_remove  = 30;
 	int key_to_insert = 30;
@@ -43,8 +45,10 @@ void question_01()
 }
 
 
-void question_02()
+void question_05()
 {
+	cout << "Question N. 5" << endl << endl;
+
 	int key_to_find = 8;
 	int key_to_remove  = 5;
 
@@ -72,8 +76,9 @@ void question_02()
 	circular.print_array();
 }
 
-void question_03()
+void question_06()
 {
+	cout << "Question N. 6" << endl << endl;
 	clock_t timer;
 	int key_to_find = 12;
 
@@ -195,9 +200,9 @@ void question_03()
 
 int main()
 {
-	question_01();
-	question_02();
-	question_03();
+	question_04();
+	question_05();
+	question_06();
 
 	return 0;
 }
