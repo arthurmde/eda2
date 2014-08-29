@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Selection.hpp"
 #include "Insertion.hpp"
+#include "Shell.hpp"
 #include <vector>
 
 using namespace std;
@@ -41,10 +42,28 @@ void insertion_sort()
 	insertion.print_array(array);
 }
 
+void shell_sort()
+{
+	cout << endl << "=========Shell Sort============" << endl;
+
+	Shell shell = Shell();
+
+	vector<int> array(random_array, random_array + 103);
+
+	shell.print_array(array);
+	shell.sort(array);
+
+	if(!shell.sorted(array))
+		cout << endl << "Array not sorted" << endl;
+
+	shell.print_array(array);
+}
+
 int main()
 {
 	selection_sort();
 	insertion_sort();
+	shell_sort();
 
 	return 0;
 }
