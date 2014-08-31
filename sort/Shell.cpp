@@ -25,3 +25,8 @@ void Shell::sort(vector<int> & array)
 		height = height/3;
 	}
 }
+
+string Shell::name()
+{
+	return "Shell";
+}

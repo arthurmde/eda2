@@ -12,6 +12,7 @@ class Insertion : public Sort
         Insertion();
         ~Insertion();
 
+        string name();
         void sort(vector<int>& array);
 };
 

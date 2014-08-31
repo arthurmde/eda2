@@ -22,3 +22,8 @@ void Selection::sort(vector<int> & array)
 			Selection::swap(array, i, index);
 	}
 }
+
+string Selection::name()
+{
+	return "Selection";
+}

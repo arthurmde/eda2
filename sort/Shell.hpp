@@ -12,6 +12,7 @@ class Shell : public Sort
         Shell();
         ~Shell();
 
+        string name();
         void sort(vector<int>& array);
 };
 

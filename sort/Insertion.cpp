@@ -14,3 +14,8 @@ void Insertion::sort(vector<int> & array)
 			Insertion::swap(array, j, j-1);
 	}
 }
+
+string Insertion::name()
+{
+	return "Insertion";
+}

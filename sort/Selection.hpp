@@ -12,6 +12,7 @@ class Selection : public Sort
         Selection();
         ~Selection();
 
+        string name();
         void sort(vector<int>& array);
 };
 
