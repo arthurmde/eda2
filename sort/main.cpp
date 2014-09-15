@@ -7,6 +7,7 @@
 #include "Insertion.hpp"
 #include "Shell.hpp"
 #include "Count.hpp"
+#include "Quick.hpp"
 
 #include "List.hpp"
 #include "Node.hpp"
@@ -33,24 +34,23 @@ void sort_array(Sort * sort_algorithm)
 void quick_sort_array()
 {
 	List* list = new List();
+	Quick* sort_algorithm = new Quick();
+
+	cout << endl << "=========" << sort_algorithm->name() << " Sort============" << endl;
 
 	for(int i = 0; i < 8; i++)
 	{
 		list->push_back(random_array[i]);
 	}
 
-	cout << endl << "Quick Sort" << endl;
 	list->print();
 
-	Node *first = list->get_node(65);
-	Node *second = list->get_node(102);
+	sort_algorithm->sort(list, list->get_head(), list->get_tail(), 0, list->size()-1);
 
-	list->swap(first,second);
 	list->print();
-
-
 
 	delete list;
+	delete sort_algorithm;
 }
 
 int main()

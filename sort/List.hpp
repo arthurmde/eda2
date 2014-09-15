@@ -17,10 +17,15 @@ class List
 		void swap(Node *first, Node *second);
 		void print();
 		Node* get_node(int value);
-
+		Node* get_node_by_index(int index);
+		int size();
+		int get_index(int value);
+		Node* get_head();
+		Node* get_tail();
 	private:
 		Node* head;
 		Node* tail;
+		int list_size;
 };
 
 
