@@ -22,7 +22,7 @@ void sort_array(Sort * sort_algorithm)
 {
 	cout << endl << "=========" << sort_algorithm->name() << " Sort============" << endl;
 
-	vector<int> array(random_array, random_array + 8);
+	vector<int> array(random_array, random_array + 50);
 
 	sort_algorithm->print_array(array);
 	sort_algorithm->sort(array);
@@ -42,7 +42,7 @@ void quick_sort_array()
 
 	cout << endl << "=========" << sort_algorithm->name() << " Sort============" << endl;
 
-	for(int i = 0; i < 8; i++)
+	for(int i = 0; i < 50; i++)
 	{
 		list->push_back(random_array[i]);
 	}
@@ -51,6 +51,8 @@ void quick_sort_array()
 
 	sort_algorithm->sort(list, list->get_head(), list->get_tail(), 0, list->size()-1);
 
+	cout << endl << "Array succesfully sorted" << endl;
+	
 	list->print();
 
 	delete list;
