@@ -1,6 +1,6 @@
 minimo=10**7
 maximo=99999999
-variacao=777777
+variacao=7777
 for i in range(minimo,maximo+1,variacao):
     print ((i - minimo)/variacao),
     vetor = range(i,minimo,-variacao)
