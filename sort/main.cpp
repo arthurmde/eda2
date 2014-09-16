@@ -7,6 +7,8 @@
 #include "Insertion.hpp"
 #include "Shell.hpp"
 #include "Count.hpp"
+#include "Heap.hpp"
+#include "InsertHeap.hpp"
 #include "Quick.hpp"
 
 #include "List.hpp"
@@ -27,6 +29,8 @@ void sort_array(Sort * sort_algorithm)
 
 	if(!sort_algorithm->sorted(array))
 		cout << endl << "Array not sorted" << endl;
+	else
+		cout << endl << "Array succesfully sorted" << endl;
 
 	sort_algorithm->print_array(array);
 }
@@ -59,12 +63,16 @@ int main()
 	Sort * insertion = new Insertion();
 	Sort * shell = new Shell();
 	Sort * count = new Count();
+	Sort * heap = new Heap();
+	Sort * insert_heap = new InsertHeap();
 
 
 	sort_array(selection);
 	sort_array(insertion);
 	sort_array(shell);
 	sort_array(count);
+	sort_array(heap);
+	sort_array(insert_heap);
 
 	quick_sort_array();
 
@@ -72,6 +80,7 @@ int main()
 	delete insertion;
 	delete shell;
 	delete count;
+	delete heap;
 
 	return 0;
 }
