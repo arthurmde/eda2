@@ -7,6 +7,7 @@
 #include "Insertion.hpp"
 #include "Shell.hpp"
 #include "Count.hpp"
+#include "Merge.hpp"
 #include "Heap.hpp"
 #include "InsertHeap.hpp"
 #include "Quick.hpp"
@@ -67,6 +68,7 @@ int main()
 	Sort * count = new Count();
 	Sort * heap = new Heap();
 	Sort * insert_heap = new InsertHeap();
+	Sort * merge = new Merge();
 
 
 	sort_array(selection);
@@ -75,6 +77,7 @@ int main()
 	sort_array(count);
 	sort_array(heap);
 	sort_array(insert_heap);
+	sort_array(merge);
 
 	quick_sort_array();
 
@@ -83,6 +86,7 @@ int main()
 	delete shell;
 	delete count;
 	delete heap;
+	delete merge;
 
 	return 0;
 }
