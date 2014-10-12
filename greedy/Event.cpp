@@ -13,6 +13,8 @@ map<string,int> Event::get_criteria(void)
 }
 
 int Event::get_criterion(string criterion)
+const
 {
-	return this->criteria[criterion];
+	map<string,int>aux = this->criteria;
+	return aux[criterion];
 }

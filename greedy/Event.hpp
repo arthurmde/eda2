@@ -13,7 +13,7 @@ class Event
         ~Event();
 
 		map<string,int> get_criteria(void);
-		int get_criterion(string criteria);
+		int get_criterion(string criterion) const;
 
     private:
 		map<string,int>criteria;
