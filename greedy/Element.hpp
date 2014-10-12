@@ -13,7 +13,9 @@ class Element
         ~Element();
 
 		map<string,int> get_criteria(void);
-		int get_criterion(string criterion) const;
+		int get_criterion(string) const;
+		void set_criterion(string, int);
+		string to_string(void);
 
     private:
 		map<string,int>criteria;

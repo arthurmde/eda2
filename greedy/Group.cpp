@@ -34,3 +34,8 @@ void Group::push_back(Element element)
 {
 	this->elements.push_back(element);
 }
+
+vector<Element> Group::get_elements(void)
+{
+	return this->elements;
+}

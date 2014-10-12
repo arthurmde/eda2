@@ -1,7 +1,10 @@
 #include "Element.hpp"
 #include <iostream>
-#include <climits>
 #include <map>
+#include <string>
+#include <sstream>
+
+using namespace std;
 
 Element::Element(){}
 
@@ -17,4 +20,24 @@ const
 {
 	map<string,int>aux = this->criteria;
 	return aux[criterion];
+}
+
+void Element::set_criterion(string criterion, int value)
+{
+	this->criteria[criterion] = value;
+}
+
+string Element::to_string(void)
+{
+	stringstream ss;
+	string data;
+
+	for(map<string,int>::iterator it=this->criteria.begin();
+			it!=this->criteria.end(); it++)
+	{
+		ss << "{" << it->first << ":" << it->second << "}";
+	}
+
+	data = ss.str();
+	return data;
 }
