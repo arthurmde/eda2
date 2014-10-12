@@ -1,18 +1,18 @@
-#include "Schedule.hpp"
+#include "Group.hpp"
 #include <iostream>
 #include <map>
 #include <algorithm>
 
-Schedule::Schedule(){}
+Group::Group(){}
 
-Schedule::~Schedule(){}
+Group::~Group(){}
 
 string g_criterion;
 int g_order;
 
 struct compare
 {
-	bool operator()(Event const& a, Event const& b)
+	bool operator()(Element const& a, Element const& b)
 	{
 		int crit_a = a.get_criterion(g_criterion);
 		int crit_b = b.get_criterion(g_criterion);
@@ -23,14 +23,14 @@ struct compare
 	}
 }compare;
 
-void Schedule::sort_events(string criterion, int order)
+void Group::sort_elements(string criterion, int order)
 {
 	g_criterion = criterion;
 	g_order = order;
-	sort(this->events.begin(),this->events.end(),compare);
+	sort(this->elements.begin(),this->elements.end(),compare);
 }
 
-void Schedule::push_back(Event event)
+void Group::push_back(Element element)
 {
-	this->events.push_back(event);
+	this->elements.push_back(element);
 }

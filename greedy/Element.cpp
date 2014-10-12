@@ -1,18 +1,18 @@
-#include "Event.hpp"
+#include "Element.hpp"
 #include <iostream>
 #include <climits>
 #include <map>
 
-Event::Event(){}
+Element::Element(){}
 
-Event::~Event(){}
+Element::~Element(){}
 
-map<string,int> Event::get_criteria(void)
+map<string,int> Element::get_criteria(void)
 {
 	return this->criteria;
 }
 
-int Event::get_criterion(string criterion)
+int Element::get_criterion(string criterion)
 const
 {
 	map<string,int>aux = this->criteria;
