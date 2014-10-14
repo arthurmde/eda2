@@ -11,12 +11,12 @@ class Group
 {
     public:
         Group();
-        ~Group();
-		void sort_elements(string criterion, int order);
-		vector<Element> get_elements(void);
-		void push_back(Element);
+        virtual ~Group();
+		virtual void sort_elements(string criterion);
+		virtual vector<Element> get_elements(void);
+		void push_back(Element& element);
 
-    private:
+    protected:
 		vector<Element> elements;
 
 };
