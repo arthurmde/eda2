@@ -9,7 +9,7 @@ using namespace std;
 
 void schedule_group()
 {
-	vector<Element*> result;
+	vector<Element> result;
 
 	Element * a = new Event(1, 4);
 	Element * b = new Event(3, 5);
@@ -22,9 +22,6 @@ void schedule_group()
 	Element * i = new Event(8, 12);
 	Element * j = new Event(2, 13);
 	Element * k = new Event(12, 14);
-
-	cout << a->to_string() << endl;
-	cout << b->to_string() << endl;
 
 	Group * schedule = new Schedule();
 
@@ -41,7 +38,7 @@ void schedule_group()
 
 	for(int cont = 0; cont < (int) result.size(); cont++)
 	{
-		cout << result[cont]->to_string() << endl;
+		cout << (&result[cont])->to_string() << endl;
 	}
 
 	schedule->sort_elements("lower_start");

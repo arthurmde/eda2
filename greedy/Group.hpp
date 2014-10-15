@@ -13,7 +13,7 @@ class Group
         Group();
         virtual ~Group();
 		virtual void sort_elements(string criterion);
-		virtual vector<Element> get_elements(void);
+		vector<Element> get_elements(void);
 		void push_back(Element& element);
 
     protected:
