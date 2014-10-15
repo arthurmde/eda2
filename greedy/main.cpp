@@ -4,7 +4,7 @@
 #include "Element.hpp"
 #include "Group.hpp"
 
-#define ELEMENT_SIZE 10
+#define ELEMENT_SIZE 300
 
 using namespace std;
 
@@ -26,8 +26,8 @@ vector<Element> solucao(vector<Element> vetor)
 			y = (it_sol->get_criterion("fim"));
 
 			if(
-					((a > x) && (a < y )) ||
-					((b > x) && (b < y )) ||
+					((a >= x) && (a < y )) ||
+					((b > x) && (b <= y )) ||
 					((a <= x) && (b >= y )))
 			{
 				is_solution=false;
