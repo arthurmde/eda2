@@ -11,10 +11,12 @@ class Node
 		Node(int);
 		~Node();
 		void insert_neighbor(Node*);
+		void remove_neighbor(Node*);
 		vector<Node*> get_neighbors(void);
 		int get_value(void);
+		int degree(void);
 	private:
-		vector<Node*> neighbor;
+		vector<Node*> neighbors;
 		int value;
 };
 
