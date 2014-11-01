@@ -54,3 +54,22 @@ Node::degree(void)
 {
 	return this->neighbors.size();
 }
+
+bool
+Node::has_neighbor(Node* node)
+{
+	bool result = false;
+
+	for(vector<Node*>::iterator it = this->neighbors.begin();
+			it != this->neighbors.end(); it++)
+	{
+		if((*it) == node)
+		{
+			result = true;
+			break;
+		}
+	}
+
+	return result;
+}
+

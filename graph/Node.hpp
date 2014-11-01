@@ -15,6 +15,7 @@ class Node
 		vector<Node*> get_neighbors(void);
 		int get_value(void);
 		int degree(void);
+		bool has_neighbor(Node*);
 	private:
 		vector<Node*> neighbors;
 		int value;

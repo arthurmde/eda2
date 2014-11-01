@@ -5,9 +5,19 @@
 
 using namespace std;
 
-Graph::Graph(){}
+Graph::Graph(bool bidirectional)
+{
+	this->is_bidirectional = bidirectional;
+}
 
-Graph::~Graph(){}
+Graph::~Graph()
+{
+	while(!this->nodes.empty())
+	{
+		delete nodes.back();
+		nodes.pop_back();
+	}
+}
 
 void
 Graph::insert_node(int value)
@@ -27,31 +37,36 @@ Graph::insert_node(Node* node)
 	this->nodes.push_back(node);
 }
 
-//FIXME: Check node and edge existence
 void
 Graph::insert_edge(Node* a ,Node* b)
 {
-	a->insert_neighbor(b);
+	if(!a->has_neighbor(b))
+		a->insert_neighbor(b);
 }
 
 int
-Graph::insert_edge(int v1, int v2, bool bidirectional)
+Graph::insert_edge(int v1, int v2)
 {
+	Node *n1,*n2;
+
 	this->insert_node(v1);
 	this->insert_node(v2);
 
-	this->insert_edge(v1,v2);
+	n1 = get_node(v1);
+	n2 = get_node(v2);
 
-	if(bidirectional)
+	this->insert_edge(n1,n2);
+
+	if(this->is_bidirectional)
 	{
-		this->insert_edge(v2,v1);
+		this->insert_edge(n2,n1);
 	}
 
 	return 0;
 }
 
 void
-Graph::remove_edge(int a ,int b, bool bidirectional)
+Graph::remove_edge(int a ,int b)
 {
 	Node *node_a = this->get_node(a);
 	Node *node_b = this->get_node(b);
@@ -60,7 +75,7 @@ Graph::remove_edge(int a ,int b, bool bidirectional)
 	{
 		this->remove_edge(node_a, node_b);
 		
-		if(bidirectional)
+		if(this->is_bidirectional)
 		{
 			this->remove_edge(node_b, node_a);
 		}
@@ -96,6 +111,7 @@ Graph::remove_node(int value)
 	}
 
 	this->nodes.erase(node_it);
+	delete (*node_it);
 }
 
 Node*
@@ -119,8 +135,20 @@ Graph::to_dot(void)
 {
 	stringstream ss;
 	string data;
-	ss << "digraph G {" << endl;
-	ss << "\t" << "// Use ./prog < input.txt | dot -Tpng -ograph.png" << endl;
+
+	string graph_name = "G";
+	string graph_type = "digraph";
+	string link_type = "->";
+	string instructions = "// Use ./prog < input.txt | dot -Tpng -ograph.png";
+
+	if(this->is_bidirectional)
+	{
+		graph_type = "graph";
+		link_type = "--";
+	}
+
+	ss << graph_type << " " << graph_name << " {"<< endl;
+	ss << "\t" << instructions << endl;
 
 	for(vector<Node*>::iterator it = this->nodes.begin();
 			it!=this->nodes.end(); it++)
@@ -137,9 +165,27 @@ Graph::to_dot(void)
 		for(vector<Node*>::iterator neigh = neighbors.begin();
 				neigh!=neighbors.end(); neigh++)
 		{
-			ss << "\t"
-				<<(*it)->get_value() << " -> " << (*neigh)->get_value()
-			   	<< ";" << endl;
+			//FIXME This is the worst way to do not duplicate links
+			if(this->is_bidirectional)
+			{
+				if(!(*neigh)->has_neighbor(*it) ||
+						(*it)->get_value() < (*neigh)->get_value())
+				{
+					ss << "\t"
+						<< (*it)->get_value() <<
+						" " << link_type << " "
+						<< (*neigh)->get_value()
+						<< ";" << endl;
+				}
+			}
+			else
+			{
+				ss << "\t"
+					<< (*it)->get_value() <<
+					" " << link_type << " "
+					<< (*neigh)->get_value()
+					<< ";" << endl;
+			}
 		}
 	}
 
