@@ -1,3 +1,5 @@
 *~
 prog
 *.swp
+*.o
+graph/tests/bin/*
