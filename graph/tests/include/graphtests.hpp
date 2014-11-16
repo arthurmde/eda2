@@ -1,7 +1,7 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestResult.h>
 
-#include "../Graph.hpp"
+#include "Graph.hpp"
 
 using namespace CppUnit;
 using namespace std;

@@ -2,7 +2,7 @@
 #include <cppunit/TestResult.h>
 #include "graphtests.hpp"
 
-#include "../Graph.hpp"
+#include "Graph.hpp"
 
 using namespace CppUnit;
 using namespace std;
