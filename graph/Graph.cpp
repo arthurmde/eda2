@@ -1,13 +1,17 @@
 #include "Graph.hpp"
+#include "Node.hpp"
+#include "Search.hpp"
 #include <vector>
 #include <string>
 #include <sstream>
+#include <queue>
+#include <stack>
 
 using namespace std;
 
 Graph::Graph(bool bidirectional)
 {
-	this->is_bidirectional = bidirectional;
+	this->bidirectional = bidirectional;
 }
 
 Graph::~Graph()
@@ -57,7 +61,7 @@ Graph::insert_edge(int v1, int v2)
 
 	this->insert_edge(n1,n2);
 
-	if(this->is_bidirectional)
+	if(this->bidirectional)
 	{
 		this->insert_edge(n2,n1);
 	}
@@ -75,7 +79,7 @@ Graph::remove_edge(int a ,int b)
 	{
 		this->remove_edge(node_a, node_b);
 		
-		if(this->is_bidirectional)
+		if(this->bidirectional)
 		{
 			this->remove_edge(node_b, node_a);
 		}
@@ -130,6 +134,12 @@ Graph::get_node(int value)
 	return node;
 }
 
+vector<Node*>
+Graph::get_nodes()
+{
+	return this->nodes;
+}
+
 string
 Graph::to_dot(void)
 {
@@ -141,7 +151,7 @@ Graph::to_dot(void)
 	string link_type = "->";
 	string instructions = "// Use ./prog < input.txt | dot -Tpng -ograph.png";
 
-	if(this->is_bidirectional)
+	if(this->bidirectional)
 	{
 		graph_type = "graph";
 		link_type = "--";
@@ -166,7 +176,7 @@ Graph::to_dot(void)
 				neigh!=neighbors.end(); neigh++)
 		{
 			//FIXME This is the worst way to do not duplicate links
-			if(this->is_bidirectional)
+			if(this->bidirectional)
 			{
 				if(!(*neigh)->has_neighbor(*it) ||
 						(*it)->get_value() < (*neigh)->get_value())
@@ -192,6 +202,102 @@ Graph::to_dot(void)
 	ss << "}" << endl;
 	data = ss.str();
 	return data;
+}
+
+bool
+Graph::is_bidirectional(void)
+{
+	return this->bidirectional;
+}
+
+Graph*
+Graph::get_inverse(void)
+{
+	Graph* inv = NULL;
+	if(this->is_bidirectional())
+	{
+		inv = this;
+	}
+	else
+	{
+		inv = new Graph(false);
+
+		vector<Node*> all_nodes = this->get_nodes();
+
+
+		for(vector<Node*>::iterator it = all_nodes.begin();
+				it != all_nodes.end();
+				it++)
+		{
+			int value = (*it)->get_value();
+			inv->insert_node(value);
+
+			vector<Node*> neighbors = (*it)->get_neighbors();
+
+			for(vector<Node*>::iterator it_neighbors = neighbors.begin();
+					it_neighbors != neighbors.end();
+					it_neighbors++)
+			{
+				int a,b;
+				a = (*it)->get_value();
+				b = (*it_neighbors)->get_value();
+				inv->insert_edge(b,a);
+			}
+		}
+	}
+
+	return inv;
+}
+
+bool
+Graph::is_connected()
+{
+	bool connected;
+	if(this->size()==0)
+		connected = false;
+	else if(this->size()==1)
+		connected = true;
+	else
+	{
+		Node *node = *(this->get_nodes().begin());
+		Search search = Search();
+		Graph *tree = search.bfs(this,node);
+
+		if(this->size()==tree->size())
+		{
+			connected = true;
+		}
+		else
+			connected = false;
+	}
+
+	return connected;
+}
+
+bool
+Graph::is_strongly_connected()
+{
+	bool strong;
+	if(!this->is_connected())
+		strong = false;
+	else
+	{
+		Node *node = *(this->get_nodes().begin());
+		int node_value = node->get_value();
+		Graph *inverse = this->get_inverse();
+		Graph *tree_current, *tree_inverse;
+		Search search = Search();
+
+		tree_inverse = search.bfs(inverse,node_value);
+		tree_current = search.bfs(this,node_value);
+
+		if(tree_current->size()==tree_inverse->size())
+			strong = true;
+		else
+			strong = false;
+	}
+
+	return strong;
 }
 
 int

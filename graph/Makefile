@@ -1,4 +1,4 @@
-SOURCES=Node.cpp Graph.cpp
+SOURCES=Node.cpp Graph.cpp Search.cpp
 MAIN=main.cpp
 HEADERS=*.hpp
 INCLUDES=-I.
