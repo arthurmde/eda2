@@ -18,7 +18,7 @@ int main(void)
 	//Characters
 	cin >> total_chars;
 
-	for(int i=0; i<total_chars; i++)
+	for(int i=0; i < total_chars; i++)
 	{
 		char broke_line;
 		int char_id;
@@ -30,7 +30,7 @@ int main(void)
 
 		string char_name(line);
 
-		graph->insert_node(char_id);
+		graph->insert_node(char_id, char_name);
 		//TODO Save Char name and ID
 
 	}

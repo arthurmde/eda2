@@ -12,6 +12,7 @@ class Graph
 		Graph(bool=false);
 		~Graph();
 		void insert_node(int);
+		void insert_node(int, string);
 		int insert_edge(int, int);
 		int insert_edge(int, int, int);
 		int increase_edge(int, int);

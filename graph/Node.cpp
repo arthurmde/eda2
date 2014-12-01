@@ -10,6 +10,12 @@ Node::Node(int value)
 	this->value = value;
 }
 
+Node::Node(int value, string name)
+{
+	this->value = value;
+	this->name = name;
+}
+
 Node::~Node(){}
 
 void
@@ -86,6 +92,12 @@ int
 Node::get_value(void)
 {
 	return (this->value);
+}
+
+string 
+Node::get_name(void)
+{
+	return (this->name);
 }
 
 int

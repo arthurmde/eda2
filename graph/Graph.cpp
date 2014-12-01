@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <iostream>
 #include <queue>
 #include <stack>
 
@@ -34,6 +35,19 @@ Graph::insert_node(int value)
 		this->insert_node(node);
 	}
 }
+
+void
+Graph::insert_node(int value, string name)
+{
+	Node *node = this->get_node(value);
+
+	if(!node)
+	{
+		node = new Node(value, name);
+		this->insert_node(node);
+	}
+}
+
 
 void
 Graph::insert_node(Node* node)
@@ -218,7 +232,6 @@ Graph::to_dot(void)
 	for(vector<Node*>::iterator it = this->nodes.begin();
 			it!=this->nodes.end(); it++)
 	{
-
 		if((*it)->degree() == 0)
 		{
 				ss << "\t" << (*it)->get_value() << ";" << endl;
