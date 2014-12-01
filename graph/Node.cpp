@@ -22,6 +22,15 @@ Node::insert_neighbor(Node *node)
 }
 
 void
+Node::insert_neighbor(Node *node, int weight)
+{
+	Neighbor n;
+	n.neighbor = node;
+	n.weight = weight;
+	this->neighbors.push_back(n);
+}
+
+void
 Node::increase_neighbor(Node *node)
 {
 	Neighbor n;

@@ -19,6 +19,7 @@ class Node
 		Node(int);
 		~Node();
 		void insert_neighbor(Node*);
+		void insert_neighbor(Node*,int);
 		void increase_neighbor(Node*);
 		void remove_neighbor(Node*);
 		vector<Neighbor> get_neighbors(void);

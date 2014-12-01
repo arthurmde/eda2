@@ -70,6 +70,34 @@ Graph::insert_edge(int v1, int v2)
 }
 
 void
+Graph::insert_edge(Node* a ,Node* b, int weight)
+{
+	if(!a->has_neighbor(b))
+		a->insert_neighbor(b,weight);
+}
+
+int
+Graph::insert_edge(int v1, int v2, int weight)
+{
+	Node *n1,*n2;
+
+	this->insert_node(v1);
+	this->insert_node(v2);
+
+	n1 = get_node(v1);
+	n2 = get_node(v2);
+
+	this->insert_edge(n1,n2, weight);
+
+	if(this->bidirectional)
+	{
+		this->insert_edge(n2, n1, weight);
+	}
+
+	return 0;
+}
+
+void
 Graph::increase_edge(Node* a ,Node* b)
 {
 		a->increase_neighbor(b);
@@ -209,9 +237,10 @@ Graph::to_dot(void)
 						(*it)->get_value() < (*neigh).neighbor->get_value())
 				{
 					ss << "\t"
-						<< (*it)->get_value() <<
-						" " << link_type << " "
-						<< (*neigh).neighbor->get_value()
+						<< (*it)->get_value()
+						<< " " << link_type
+						<< " " << (*neigh).neighbor->get_value()
+						<< " " << "[label=" << (*neigh).weight << "]"
 						<< ";" << endl;
 				}
 			}
@@ -221,6 +250,7 @@ Graph::to_dot(void)
 					<< (*it)->get_value() <<
 					" " << link_type << " "
 					<< (*neigh).neighbor->get_value()
+					<< " " << "[label=" << (*neigh).weight << "]"
 					<< ";" << endl;
 			}
 		}
@@ -290,7 +320,8 @@ Graph::get_subgraph(int value)
 		for(unsigned int i=0; i<nodes.size(); i++)
 		{
 			int neigh_value = nodes[i].neighbor->get_value();
-			subgraph->insert_edge(value,neigh_value);
+			int weight = nodes[i].weight;
+			subgraph->insert_edge(value,neigh_value,weight);
 		}
 	}
 
