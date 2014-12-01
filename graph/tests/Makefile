@@ -19,10 +19,10 @@ all: clean executable
 
 OBJECTS: $(OBJ_DIR)/graphtest.o $(OBJ_DIR)/main.o $(OBJ_DIR)/Graph.o $(OBJ_DIR)/Node.o $(OBJ_DIR)/Search.o
 
-$(OBJ_DIR)/graphtest.o: $(SRC_DIR)/graphtests.cpp
+$(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp $(OBJ_DIR)/graphtest.o
 	$(CC) -c $(CFLAGS) -I$(INC_DIR) -I.. $(LFLAGS) -o $@ $<
 
-$(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp
+$(OBJ_DIR)/graphtest.o: $(SRC_DIR)/graphtests.cpp $(INC_DIR)/graphtests.hpp $(OBJ_DIR)/Graph.o $(OBJ_DIR)/Node.o
 	$(CC) -c $(CFLAGS) -I$(INC_DIR) -I.. $(LFLAGS) -o $@ $<
 
 $(OBJ_DIR)/Graph.o: ../Graph.cpp ../Graph.hpp
