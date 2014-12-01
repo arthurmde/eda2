@@ -1,24 +1,30 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstdlib>
 
 #include "Graph.hpp"
 #include "Search.hpp"
 
 using namespace std;
 
-int main(void)
+int main(int argc, char** argv)
 {
+	int id = -1;
+
+	if(argc > 1)
+		id = atoi(argv[1]);
+	else
+		cout << "// Accessing SHIELD's database...";
+
 	Graph *graph = new Graph(true);
 	Search searcher = Search();
 	int total_chars;
 	int total_events;
 
-	ifstream infile; 
-	infile.open("all.txt"); 
-	
-	cout << "Reading from the file" << endl; 
-	
+	ifstream infile;
+	infile.open("all.txt");
+
 	//Characters
 	infile >> total_chars;
 
@@ -71,38 +77,39 @@ int main(void)
 	infile.close();
 
 	//cout << graph->to_dot();
-	
-	int id;
 
-	cout << "Type your character ID: ";
-	cin >> id;
-
-	Node *found = graph->get_node(id);
-	
-	if(found == 0)
+	if(id == -1)
 	{
-		cout << "Character not found!" << endl;
-		return -1;
+		cout << "Type your character ID: ";
+		cin >> id;
+
+		Node *found = graph->get_node(id);
+
+		if(found == 0)
+		{
+			cout << "Character not found!" << endl;
+			return -1;
+		}
+
+		cout << endl << "Your charcater record: " << endl;
+		cout << "\t" << "Identification: " << found->get_value();
+		cout << "\t" << "Name: " << found->get_name();
+
+		vector<Neighbor> neighbors = found->get_neighbors();
+		if(neighbors.size() == 0)
+			cout << "\t" << "No relations!" << endl;
+		else
+		{
+			cout << "\t" << "Relatated to (" << neighbors.size() << ") : " << endl;
+			for(int i = 0; i < (int)neighbors.size(); i++)
+				cout << "\t\t" << neighbors[i].neighbor->get_value() << " - " << neighbors[i].neighbor->get_name() << "(" << neighbors[i].weight << ")" << endl;
+
+			cout << "\t" << "Closer relations (" << found->high_weight() << " events): " << endl;
+			vector<Node*> closers = found->closers();
+			for(int i = 0; i < (int)closers.size(); i++)
+				cout << "\t\t" << closers[i]->get_value() << " - " << closers[i]->get_name() << endl;
+		}
 	}
-
-	cout << endl << "Your charcater record: " << endl;
-	cout << "\t" << "Identification: " << found->get_value();
-	cout << "\t" << "Name: " << found->get_name();
-
-	vector<Neighbor> neighbors = found->get_neighbors();
-	if(neighbors.size() == 0)
-		cout << "\t" << "No relations!" << endl;
-	else
-	{
-		cout << "\t" << "Relatated to (" << neighbors.size() << ") : " << endl;
-		for(int i = 0; i < (int)neighbors.size(); i++)
-			cout << "\t\t" << neighbors[i].neighbor->get_value() << " - " << neighbors[i].neighbor->get_name() << "(" << neighbors[i].weight << ")" << endl;
-    	
-    	cout << "\t" << "Closer relations (" << found->high_weight() << " events): " << endl;
-    	vector<Node*> closers = found->closers();
-		for(int i = 0; i < (int)closers.size(); i++)
-			cout << "\t\t" << closers[i]->get_value() << " - " << closers[i]->get_name() << endl;
-    }
 
 	//Nodes related to Apocalypse 1009156
 	cout << graph->get_subgraph(id)->to_dot();

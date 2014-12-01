@@ -28,7 +28,7 @@ void
 Graph::insert_node(int value)
 {
 	Node *node = this->get_node(value);
-	
+
 	if(!node)
 	{
 		node = new Node(value);
@@ -147,7 +147,7 @@ Graph::remove_edge(int a ,int b)
 	if(node_a && node_b)
 	{
 		this->remove_edge(node_a, node_b);
-		
+
 		if(this->bidirectional)
 		{
 			this->remove_edge(node_b, node_a);
@@ -172,7 +172,7 @@ Graph::remove_node(int value)
 	}
 
 	vector<Node*>::iterator node_it;
-	
+
 	for(vector<Node*>::iterator it=this->nodes.begin(); it!=nodes.end(); it++)
 	{
 		(*it)->remove_neighbor(node);
@@ -218,7 +218,7 @@ Graph::to_dot(void)
 	string graph_name = "G";
 	string graph_type = "digraph";
 	string link_type = "->";
-	string instructions = "// Use ./prog < input.txt | dot -Tpng -ograph.png";
+	string instructions = "// Use ./prog <character id> | dot -Tpng -ograph.png";
 
 	if(this->bidirectional)
 	{
