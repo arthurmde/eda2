@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 
 #include "Graph.hpp"
@@ -8,51 +9,65 @@ using namespace std;
 
 int main(void)
 {
-	Graph *graph;
+	Graph *graph = new Graph(true);
 	Search searcher = Search();
-	string type;
-	int a,b;
+	int total_chars;
+	char line[502];
+	int total_events;
 
-	cin >> type;
-	if(type=="bidirecional")
-		graph = new Graph(true);
+	//Characters
+	cin >> total_chars;
 
-	else if(type=="unidirecional")
-		graph = new Graph(false);
-
-	else
+	for(int i=0; i<total_chars; i++)
 	{
-		cout << "Graph type wrong or missing." << endl;
-		return -1;
-	}
-	
-	while(cin >> a >> b)
-	{
-		graph->insert_edge(a,b);
-	}
+		char broke_line;
+		int char_id;
 
+		cin >> char_id;
 
-//	Graph *tree;
-//	tree = searcher.bfs(graph,1);
-//	cout << graph->to_dot();
-//	cout << tree->to_dot();
-//	
-//	Graph *inverse;
-//	inverse = graph->get_inverse();
-//	cout << inverse->to_dot();
-	
-	if(!graph->is_connected())
-		cout << "Graph is not connected." << endl;
-	else
-	{
-		cout << "Graph is connected." << endl;
-		if(graph->is_strongly_connected())
-			cout << "Graph is strongly connected." << endl;
-		else
-			cout << "Graph is not strongly connected." << endl;
+		scanf("%c",&broke_line);
+		cin.getline(line,500);
+
+		string char_name(line);
+
+		graph->insert_node(char_id);
+		//TODO Save Char name and ID
 
 	}
+
+	//Events
+	cin >> total_events;
+
+	int chars_by_event;
+	for(int i=0; i<total_events; i++)
+	{
+		int event_id;
+		cin >> event_id;
+		char broke_line;
+		scanf("%c",&broke_line);
+		cin.getline(line,500);
+		string event_name(line);
+
+		//TODO Save Event name and ID
+
+		cin >> chars_by_event;
+		int char_id;
+		vector<int> chars_list;
+		for(int i=0; i<chars_by_event; i++)
+		{
+			cin >> char_id;
+			chars_list.push_back(char_id);
+		}
+
+		for(unsigned int i=0; i<(chars_list.size()-1); i++)
+			for(unsigned int j=i+1; j<chars_list.size(); j++)
+				graph->insert_edge(chars_list[i],chars_list[j]);
+	}
+
 	//cout << graph->to_dot();
+	
+	//Nodes related to Logan
+	cout << graph->get_subgraph(1009156)->to_dot();
 
 	delete graph;
 	return 0;

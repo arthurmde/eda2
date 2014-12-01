@@ -12,8 +12,11 @@ public:
     CPPUNIT_TEST_SUITE(GraphTests);
     CPPUNIT_TEST(testSize);
     CPPUNIT_TEST(testEmpty);
+    CPPUNIT_TEST(testNotEmpty);
     CPPUNIT_TEST(testIsConnected);
+    CPPUNIT_TEST(testIsNotConnected);
     CPPUNIT_TEST(testIsCyclical);
+    CPPUNIT_TEST(testIsNotCyclical);
     CPPUNIT_TEST(testIsTree);
     CPPUNIT_TEST(testDistance);
     CPPUNIT_TEST(testToDot);
@@ -26,8 +29,11 @@ public:
 protected:
     void testSize(void);
     void testEmpty(void);
+    void testNotEmpty(void);
     void testIsConnected(void);
+    void testIsNotConnected(void);
     void testIsCyclical(void);
+    void testIsNotCyclical(void);
     void testIsTree(void);
     void testDistance(void);
     void testToDot(void);

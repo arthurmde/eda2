@@ -249,6 +249,27 @@ Graph::get_inverse(void)
 	return inv;
 }
 
+Graph*
+Graph::get_subgraph(int value)
+{
+	Graph* subgraph = new Graph(this->is_bidirectional());
+
+	Node *node = this->get_node(value);
+
+	if(node)
+	{
+		subgraph->insert_node(value);
+		vector<Node*>nodes = node->get_neighbors();
+		for(unsigned int i=0; i<nodes.size(); i++)
+		{
+			int neigh_value = nodes[i]->get_value();
+			subgraph->insert_edge(value,neigh_value);
+		}
+	}
+
+	return subgraph;
+}
+
 bool
 Graph::is_connected()
 {

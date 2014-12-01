@@ -26,6 +26,7 @@ class Graph
 		bool is_tree();
 		int distance(int,int);
 		Graph *get_inverse(void);
+		Graph *get_subgraph(int);
 
 
 		string to_dot(void);
