@@ -43,7 +43,6 @@ int main(void)
 	for(int i = 0; i < total_events; i++)
 	{
 		int event_id;
-		char broke_line;
 
 		infile >> event_id;
 
@@ -97,15 +96,15 @@ int main(void)
 	{
 		cout << "\t" << "Relatated to (" << neighbors.size() << ") : " << endl;
 		for(int i = 0; i < (int)neighbors.size(); i++)
-			cout << "\t\t" << neighbors[i].neighbor->get_value() << " - " << neighbors[i].neighbor->get_name() << endl;
+			cout << "\t\t" << neighbors[i].neighbor->get_value() << " - " << neighbors[i].neighbor->get_name() << "(" << neighbors[i].weight << ")" << endl;
     	
-  //   	cout << "\t" << "Closer relations (" << found->high_weight() << " events): " << endl;
-  //   	vector<Node*> closers = found->closers();
-		// for(int i = 0; i < (int)closers.size(); i++)
-		// 	cout << "\t\t" << closers[i].get_value << " - " << closers[i].get_name << endl;
+    	cout << "\t" << "Closer relations (" << found->high_weight() << " events): " << endl;
+    	vector<Node*> closers = found->closers();
+		for(int i = 0; i < (int)closers.size(); i++)
+			cout << "\t\t" << closers[i]->get_value() << " - " << closers[i]->get_name() << endl;
     }
 
-	//Nodes related to Logan 1009156
+	//Nodes related to Apocalypse 1009156
 	cout << graph->get_subgraph(id)->to_dot();
 
 	delete graph;

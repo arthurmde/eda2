@@ -25,7 +25,9 @@ class Node
 		void increase_neighbor(Node*);
 		void remove_neighbor(Node*);
 		vector<Neighbor> get_neighbors(void);
+		vector<Node*> closers(void);
 		int get_value(void);
+		int high_weight(void);
 		string get_name(void);
 		int degree(void);
 		bool has_neighbor(Node*);

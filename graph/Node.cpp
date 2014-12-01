@@ -69,6 +69,21 @@ Node::get_neighbors(void)
 	return (this->neighbors);
 }
 
+vector<Node*>
+Node::closers(void)
+{
+	int high = this->high_weight();
+	vector<Node*> nodes;
+
+	for(int i = 0; i < (int)this->neighbors.size(); i++)
+	{
+		if(high == this->neighbors[i].weight)
+			nodes.push_back(this->neighbors[i].neighbor);
+	}
+
+	return nodes;
+}
+
 void
 Node::remove_neighbor(Node* node)
 {
@@ -92,6 +107,20 @@ int
 Node::get_value(void)
 {
 	return (this->value);
+}
+
+int 
+Node::high_weight(void)
+{
+	int high = 0;
+
+	for(int i = 0; i < (int)this->neighbors.size(); i++)
+	{
+		if(high < this->neighbors[i].weight)
+			high = this->neighbors[i].weight;
+	}
+
+	return high;
 }
 
 string 
