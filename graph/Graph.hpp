@@ -13,6 +13,7 @@ class Graph
 		~Graph();
 		void insert_node(int);
 		int insert_edge(int, int);
+		int increase_edge(int, int);
 		void remove_edge(int, int);
 		void remove_node(int);
 		Node* get_node(int);
@@ -36,6 +37,7 @@ class Graph
 	private:
 		void insert_node(Node*);
 		void insert_edge(Node*,Node*);
+		void increase_edge(Node*,Node*);
 		void remove_edge(Node*,Node*);
 
 		//TODO

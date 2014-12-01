@@ -15,10 +15,40 @@ Node::~Node(){}
 void
 Node::insert_neighbor(Node *node)
 {
-	this->neighbors.push_back(node);
+	Neighbor n;
+	n.neighbor = node;
+	n.weight = 1;
+	this->neighbors.push_back(n);
 }
 
-vector<Node*>
+void
+Node::increase_neighbor(Node *node)
+{
+	Neighbor n;
+	n.neighbor = node;
+
+	if(this->has_neighbor(node))
+	{
+		//TODO Improve vector access
+		for(vector<Neighbor>::iterator it = this->neighbors.begin();
+				it != this->neighbors.end();
+				it++)
+		{
+			if((*it).neighbor == node)
+			{
+				(*it).weight++;
+				break;
+			}
+		}
+	}
+	else
+	{
+		n.weight = 1;
+		this->neighbors.push_back(n);
+	}
+}
+
+vector<Neighbor>
 Node::get_neighbors(void)
 {
 	return (this->neighbors);
@@ -27,11 +57,11 @@ Node::get_neighbors(void)
 void
 Node::remove_neighbor(Node* node)
 {
-	vector<Node*>::iterator it;
+	vector<Neighbor>::iterator it;
 
 	for(it = this->neighbors.begin(); it != this->neighbors.end(); it++)
 	{
-		if((*it) == node)
+		if((*it).neighbor == node)
 		{
 			break;
 		}
@@ -60,10 +90,10 @@ Node::has_neighbor(Node* node)
 {
 	bool result = false;
 
-	for(vector<Node*>::iterator it = this->neighbors.begin();
+	for(vector<Neighbor>::iterator it = this->neighbors.begin();
 			it != this->neighbors.end(); it++)
 	{
-		if((*it) == node)
+		if((*it).neighbor == node)
 		{
 			result = true;
 			break;

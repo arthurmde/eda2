@@ -70,6 +70,33 @@ Graph::insert_edge(int v1, int v2)
 }
 
 void
+Graph::increase_edge(Node* a ,Node* b)
+{
+		a->increase_neighbor(b);
+}
+
+int
+Graph::increase_edge(int v1, int v2)
+{
+	Node *n1,*n2;
+
+	this->insert_node(v1);
+	this->insert_node(v2);
+
+	n1 = get_node(v1);
+	n2 = get_node(v2);
+
+	this->increase_edge(n1,n2);
+
+	if(this->bidirectional)
+	{
+		this->increase_edge(n2,n1);
+	}
+
+	return 0;
+}
+
+void
 Graph::remove_edge(int a ,int b)
 {
 	Node *node_a = this->get_node(a);
@@ -170,21 +197,21 @@ Graph::to_dot(void)
 				continue;
 		}
 
-		vector<Node*>neighbors = (*it)->get_neighbors();
+		vector<Neighbor>neighbors = (*it)->get_neighbors();
 
-		for(vector<Node*>::iterator neigh = neighbors.begin();
+		for(vector<Neighbor>::iterator neigh = neighbors.begin();
 				neigh!=neighbors.end(); neigh++)
 		{
 			//FIXME This is the worst way to do not duplicate links
 			if(this->bidirectional)
 			{
-				if(!(*neigh)->has_neighbor(*it) ||
-						(*it)->get_value() < (*neigh)->get_value())
+				if(!(*neigh).neighbor->has_neighbor(*it) ||
+						(*it)->get_value() < (*neigh).neighbor->get_value())
 				{
 					ss << "\t"
 						<< (*it)->get_value() <<
 						" " << link_type << " "
-						<< (*neigh)->get_value()
+						<< (*neigh).neighbor->get_value()
 						<< ";" << endl;
 				}
 			}
@@ -193,7 +220,7 @@ Graph::to_dot(void)
 				ss << "\t"
 					<< (*it)->get_value() <<
 					" " << link_type << " "
-					<< (*neigh)->get_value()
+					<< (*neigh).neighbor->get_value()
 					<< ";" << endl;
 			}
 		}
@@ -232,15 +259,15 @@ Graph::get_inverse(void)
 			int value = (*it)->get_value();
 			inv->insert_node(value);
 
-			vector<Node*> neighbors = (*it)->get_neighbors();
+			vector<Neighbor> neighbors = (*it)->get_neighbors();
 
-			for(vector<Node*>::iterator it_neighbors = neighbors.begin();
+			for(vector<Neighbor>::iterator it_neighbors = neighbors.begin();
 					it_neighbors != neighbors.end();
 					it_neighbors++)
 			{
 				int a,b;
 				a = (*it)->get_value();
-				b = (*it_neighbors)->get_value();
+				b = (*it_neighbors).neighbor->get_value();
 				inv->insert_edge(b,a);
 			}
 		}
@@ -259,10 +286,10 @@ Graph::get_subgraph(int value)
 	if(node)
 	{
 		subgraph->insert_node(value);
-		vector<Node*>nodes = node->get_neighbors();
+		vector<Neighbor>nodes = node->get_neighbors();
 		for(unsigned int i=0; i<nodes.size(); i++)
 		{
-			int neigh_value = nodes[i]->get_value();
+			int neigh_value = nodes[i].neighbor->get_value();
 			subgraph->insert_edge(value,neigh_value);
 		}
 	}

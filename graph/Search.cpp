@@ -35,18 +35,18 @@ Search::bfs(Graph* graph, Node *node)
 	{
 		Node* u = this->q.front();
 		this->q.pop();
-		vector<Node*> neighbors = u->get_neighbors();
-		for(vector<Node*>::iterator it = neighbors.begin();
+		vector<Neighbor> neighbors = u->get_neighbors();
+		for(vector<Neighbor>::iterator it = neighbors.begin();
 				it != neighbors.end();
 				it++)
-			if(!is_visited(*it))
+			if(!is_visited((*it).neighbor))
 			{
 				int a,b;
 				a = u->get_value();
-				b = (*it)->get_value();
+				b = (*it).neighbor->get_value();
 				tree->insert_edge(a,b);
-				this->visit(*it);
-				q.push(*it);
+				this->visit((*it).neighbor);
+				q.push((*it).neighbor);
 			}
 
 		{

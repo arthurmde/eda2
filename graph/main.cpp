@@ -61,7 +61,7 @@ int main(void)
 
 		for(unsigned int i=0; i<(chars_list.size()-1); i++)
 			for(unsigned int j=i+1; j<chars_list.size(); j++)
-				graph->insert_edge(chars_list[i],chars_list[j]);
+				graph->increase_edge(chars_list[i],chars_list[j]);
 	}
 
 	//cout << graph->to_dot();
