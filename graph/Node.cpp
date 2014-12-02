@@ -21,10 +21,7 @@ Node::~Node(){}
 void
 Node::insert_neighbor(Node *node)
 {
-	Neighbor n;
-	n.neighbor = node;
-	n.weight = 1;
-	this->neighbors.push_back(n);
+	this->insert_neighbor(node,1);
 }
 
 void
@@ -33,6 +30,10 @@ Node::insert_neighbor(Node *node, int weight)
 	Neighbor n;
 	n.neighbor = node;
 	n.weight = weight;
+	for(unsigned int i=0; i<this->neighbors.size(); i++)
+		if(neighbors[i].neighbor==node)
+			return;
+
 	this->neighbors.push_back(n);
 }
 

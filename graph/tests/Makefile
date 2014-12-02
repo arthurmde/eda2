@@ -7,7 +7,7 @@ SRC_DIR = src
 BIN_DIR = bin
 INC_DIR = include
 SOURCES = ../Graph.cpp ../Node.cpp ../Search.cpp $(SRC_DIR)/*.cpp
-OBJECTS = $(OBJ_DIR)/graphtest.o $(OBJ_DIR)/main.o $(OBJ_DIR)/Graph.o $(OBJ_DIR)/Node.o $(OBJ_DIR)/Search.o
+OBJECTS = $(OBJ_DIR)/graphtest.o $(OBJ_DIR)/nodetest.o $(OBJ_DIR)/main.o $(OBJ_DIR)/Graph.o $(OBJ_DIR)/Node.o $(OBJ_DIR)/Search.o
 
 run: executable
 	bin/test
@@ -17,9 +17,12 @@ executable:$(OBJECTS)
 
 all: clean executable
 
-OBJECTS: $(OBJ_DIR)/graphtest.o $(OBJ_DIR)/main.o $(OBJ_DIR)/Graph.o $(OBJ_DIR)/Node.o $(OBJ_DIR)/Search.o
+OBJECTS: $(OBJ_DIR)/graphtest.o $(OBJ_DIR)/nodetest.o $(OBJ_DIR)/main.o $(OBJ_DIR)/Graph.o $(OBJ_DIR)/Node.o $(OBJ_DIR)/Search.o
 
-$(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp $(OBJ_DIR)/graphtest.o
+$(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp $(OBJ_DIR)/graphtest.o $(OBJ_DIR)/nodetest.o
+	$(CC) -c $(CFLAGS) -I$(INC_DIR) -I.. $(LFLAGS) -o $@ $<
+
+$(OBJ_DIR)/nodetest.o: $(SRC_DIR)/nodetests.cpp $(INC_DIR)/nodetests.hpp $(OBJ_DIR)/Node.o
 	$(CC) -c $(CFLAGS) -I$(INC_DIR) -I.. $(LFLAGS) -o $@ $<
 
 $(OBJ_DIR)/graphtest.o: $(SRC_DIR)/graphtests.cpp $(INC_DIR)/graphtests.hpp $(OBJ_DIR)/Graph.o $(OBJ_DIR)/Node.o
