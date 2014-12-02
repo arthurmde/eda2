@@ -109,9 +109,8 @@ int main(int argc, char** argv)
 				cout << "\t\t" << closers[i]->get_value() << " - " << closers[i]->get_name() << endl;
 		}
 	}
-
-	//Nodes related to Apocalypse 1009156
-	cout << graph->get_subgraph(id)->to_dot();
+	else
+		cout << graph->get_subgraph(id)->to_dot();
 
 	delete graph;
 	return 0;
