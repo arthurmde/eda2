@@ -16,6 +16,7 @@ public:
 	CPPUNIT_TEST(testRemove_neighbor);
 	CPPUNIT_TEST(testGet_neighbors);
 	CPPUNIT_TEST(testGet_value);
+	CPPUNIT_TEST(testGet_name);
 	CPPUNIT_TEST(testDegree);
 	CPPUNIT_TEST(testHas_neighbor);
 
@@ -32,6 +33,7 @@ protected:
 	void testRemove_neighbor(void);
 	void testGet_neighbors(void);
 	void testGet_value(void);
+	void testGet_name(void);
 	void testDegree(void);
 	void testHas_neighbor(void);
 private:

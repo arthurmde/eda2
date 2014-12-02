@@ -11,7 +11,7 @@ using namespace std;
 void
 NodeTests::setUp(void)
 {
-	this->mTestObj = new Node(7);
+	this->mTestObj = new Node(7,"node_name");
 }
 
 void
@@ -62,6 +62,13 @@ void
 NodeTests::testGet_value(void)
 {
 	CPPUNIT_ASSERT_EQUAL(7,mTestObj->get_value());
+}
+
+void
+NodeTests::testGet_name(void)
+{
+	string compare = "node_name";
+	CPPUNIT_ASSERT_EQUAL(compare,mTestObj->get_name());
 }
 
 void

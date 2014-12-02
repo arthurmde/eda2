@@ -154,9 +154,27 @@ GraphTests::testRemove_node(void)
 void
 GraphTests::testGet_node(void)
 {
+	mTestObj->insert_node(3,"node_name");
+	Node *aux;
+	aux = mTestObj->get_node(1);
+	CPPUNIT_ASSERT(!aux);
+	aux = mTestObj->get_node(3);
+	CPPUNIT_ASSERT(aux);
+	string name = "node_name";
+	CPPUNIT_ASSERT_EQUAL(name,aux->get_name());
 }
 
 void
 GraphTests::testGet_nodes(void)
 {
+	vector<Node*> nodes;
+	nodes = mTestObj->get_nodes();
+	CPPUNIT_ASSERT(nodes.empty());
+
+	mTestObj->insert_node(1,"node_name_one");
+	mTestObj->insert_node(2,"node_name_two");
+	mTestObj->insert_node(3,"node_name_three");
+	nodes = mTestObj->get_nodes();
+	CPPUNIT_ASSERT(!nodes.empty());
+	CPPUNIT_ASSERT_EQUAL(3,(int)nodes.size());
 }
