@@ -16,6 +16,7 @@ class Graph
 		int insert_edge(int, int);
 		int insert_edge(int, int, int);
 		int increase_edge(int, int);
+		int relevance(int);
 		void remove_edge(int, int);
 		void remove_node(int);
 		Node* get_node(int);

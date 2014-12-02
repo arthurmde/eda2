@@ -7,6 +7,7 @@
 #include <iostream>
 #include <queue>
 #include <stack>
+#include <algorithm>
 
 using namespace std;
 
@@ -114,7 +115,34 @@ Graph::insert_edge(int v1, int v2, int weight)
 void
 Graph::increase_edge(Node* a ,Node* b)
 {
-		a->increase_neighbor(b);
+	a->increase_neighbor(b);
+}
+
+bool
+by_degree(Node* n1, Node* n2)
+{
+	return n1->degree() < n2->degree();
+}
+
+int
+Graph::relevance(int id)
+{
+	Node* node = get_node(id);
+
+	if(!node)
+	{
+		return -1;
+	}
+
+	sort(this->nodes.begin(), this->nodes.end(), by_degree);
+
+	for (int i = this->nodes.size() - 1; i >= 0 ; --i)
+	{
+		if(node->get_value() == this->nodes[i]->get_value())
+			return this->nodes.size() - i;
+	}
+
+	return -1;
 }
 
 int

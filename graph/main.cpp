@@ -15,7 +15,7 @@ int main(int argc, char** argv)
 	if(argc > 1)
 		id = atoi(argv[1]);
 	else
-		cout << "// Accessing SHIELD's database...";
+		cout << "... Accessing SHIELD's database ..." << endl;
 
 	Graph *graph = new Graph(true);
 	Search searcher = Search();
@@ -76,8 +76,6 @@ int main(int argc, char** argv)
 
 	infile.close();
 
-	//cout << graph->to_dot();
-
 	if(id == -1)
 	{
 		cout << "Type your character ID: ";
@@ -92,8 +90,9 @@ int main(int argc, char** argv)
 		}
 
 		cout << endl << "Your charcater record: " << endl;
-		cout << "\t" << "Identification: " << found->get_value();
-		cout << "\t" << "Name: " << found->get_name();
+		cout << "\t" << "Identification: " << found->get_value() << endl;
+		cout << "\t" << "Name: " << found->get_name() << endl;
+		cout << "\t" << "Relevance position in the Universe: " << graph->relevance(id) << endl;
 
 		vector<Neighbor> neighbors = found->get_neighbors();
 		if(neighbors.size() == 0)
